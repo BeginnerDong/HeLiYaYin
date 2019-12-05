@@ -1,0 +1,68 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "首页",//设置页面标题文字
+				"onReachBottomDistance":100
+				// "navigationStyle":"custom" //标题隐藏
+			}
+		},
+		{
+			"path": "pages/aboutUs/aboutUs",
+			"style": {
+				"navigationBarTitleText": "关于我们",//设置页面标题文字
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/contactCompany/contactCompany",
+			"style": {
+				"navigationBarTitleText": "联系公司",//设置页面标题文字
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/printPage/printPage",
+			"style": {
+				"navigationBarTitleText": "合板单页",//设置页面标题文字
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/picBook/picBook",
+			"style": {
+				"navigationBarTitleText": "画册报价",//设置页面标题文字
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/craft/craft",
+			"style": {
+				"navigationBarTitleText": "封面工艺",//设置页面标题文字
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/picBookResult/picBookResult",
+			"style": {
+				"navigationBarTitleText": "报价结果",//设置页面标题文字
+				"onReachBottomDistance":100
+			}
+		}
+	],
+	
+	"globalStyle": {
+		"navigationBarTextStyle": "white",//导航栏文字蓝色
+		"navigationBarTitleText": "合力雅印",
+		"navigationBarBackgroundColor": "#3cbcff"
+	},
+	"condition": { //模式配置，仅开发期间生效
+		"current": 0, //当前激活的模式(list 的索引项)
+		"list": [{
+			"name": "", //模式名称
+			"path": "", //启动页面，必选
+			"query": "" //启动参数，在页面的onLoad函数里面得到
+		}]
+	}
+}
