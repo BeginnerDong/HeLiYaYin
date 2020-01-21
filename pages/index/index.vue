@@ -7,9 +7,9 @@
 				<view class="banner-box">
 					<view class="banner">
 						<swiper class="swiper-box flex" indicator-dots="true" autoplay="true" interval="3000" duration="1000" >
-							<block v-for="(item,index) in labelData" :key="index">
+							<block v-for="(item,index) in mainData.mainImg" :key="index">
 								<swiper-item class="swiper-item">
-									<image :src="item" class="slide-image"/>
+									<image :src="item.url" class="slide-image"/>
 								</swiper-item>
 							</block>
 						</swiper>
@@ -26,18 +26,20 @@
 							<view class="goBtn">立即进入&gt;</view>
 						</view>
 					</view>
-					<view class="item flex radius10"  style="background: #d6edff;color: #2ea3ff;" @click="Router.navigateTo({route:{path:'/pages/printPage/printPage'}})">
+					<view class="item flex radius10"  style="background: #d6edff;color: #2ea3ff;" 
+					@click="Router.navigateTo({route:{path:'/pages/printPage/printPage?title=合板单页'}})">
 						<view><image class="icon mgr10" src="../../static/images/home-icon3.png" mode=""></image></view>
 						<view>
-							<view class="tit">画册书刊报价</view>
+							<view class="tit">合板单页保价</view>
 							<view class="goBtn">立即进入&gt;</view>
 						</view>
 					</view>
 				</view>
-				<view class="Rbox radius10 flexColumn" style="justify-content: center;color: #ff3b85;"  @click="Router.navigateTo({route:{path:'/pages/printPage/printPage'}})">
+				<view class="Rbox radius10 flexColumn" style="justify-content: center;color: #ff3b85;"  
+				@click="Router.navigateTo({route:{path:'/pages/printPage/printPage?title=其他'}})">
 					<view class="flexCenter mgb15"><image class="icon" src="../../static/images/home-icon4.png" mode=""></image></view>
 					<view class="flexColumn">
-						<view class="tit">画册书刊报价</view>
+						<view class="tit">其他印刷品保价</view>
 						<view class="goBtn">立即进入&gt;</view>
 					</view>
 				</view>
@@ -75,28 +77,32 @@
 		data() {
 			return {
 				Router:this.$Router,
-				showView: false,
-				wx_info:{},
-				labelData: [
-					"../../static/images/home-banenr.png",
-					"../../static/images/home-banenr.png",
-					"../../static/images/home-banenr.png",
-				]
+				mainData:{}
 			}
 		},
 		
 		onLoad(options) {
 			const self = this;
-			// self.$Utils.loadAll(['getMainData'], self);
+			self.$Utils.loadAll(['getMainData'], self);
 		},
+		
 		methods: {
 			getMainData() {
 				const self = this;
-				console.log('852369')
 				const postData = {};
-				postData.tokenFuncName = 'getProjectToken';
-				self.$apis.orderGet(postData, callback);
-			}
+				postData.searchItem = {
+					thirdapp_id: 2,
+					title: '首页轮播'
+				};
+				const callback = (res) => {
+					if (res.info.data.length > 0) {
+						self.mainData = res.info.data[0]
+					}
+					console.log('self.mainData', self.mainData)
+					self.$Utils.finishFunc('getMainData');
+				};
+				self.$apis.labelGet(postData, callback);
+			},
 		}
 	};
 </script>

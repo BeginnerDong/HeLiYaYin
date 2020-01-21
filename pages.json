@@ -25,7 +25,7 @@
 		{
 			"path": "pages/printPage/printPage",
 			"style": {
-				"navigationBarTitleText": "合板单页",//设置页面标题文字
+				"navigationBarTitleText": "",//设置页面标题文字
 				"onReachBottomDistance":100
 			}
 		},

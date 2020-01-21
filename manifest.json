@@ -1,5 +1,5 @@
 {
-    "name" : "uni-one",
+    "name" : "合力雅印",
     "appid" : "",
     "description" : "",
     "versionName" : "1.0.0",
@@ -55,12 +55,12 @@
     /* 快应用特有相关 */
     "mp-weixin" : {
         /* 小程序特有相关 */
-        "appid" : "",
+        "appid" : "wx26b9162189c809f6",
         "setting" : {
             "urlCheck" : false,
             "es6" : true,
             "postcss" : false,
-            "minified" : true
+            "minified" : false
         },
         "usingComponents" : false,
         "permission" : {}

@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view><strong></strong>
-			<image class="w bigImg" src="../../static/images/img.png" mode="widthFix"></image>
+			<image class="w bigImg" :src="mainData.mainImg&&mainData.mainImg[0]?mainData.mainImg[0].url:''" mode="widthFix"></image>
 		</view>
 		
 	</view>
@@ -12,23 +12,42 @@
 		data() {
 			return {
 				Router:this.$Router,
-				showView: false,
-				wx_info:{}
+				mainData:{}
 			}
 		},
 		
 		onLoad(options) {
 			const self = this;
-			// self.$Utils.loadAll(['getMainData'], self);
+			self.title = options.title;
+			self.$Utils.loadAll(['getMainData'], self);
 		},
+		
+		 onShow() {  
+			const self = this;
+			setTimeout(() => {  
+				uni.setNavigationBarTitle({  
+					title: self.title
+				})  
+			}, 500)  
+		},
+		
 		methods: {
 			getMainData() {
 				const self = this;
-				console.log('852369')
 				const postData = {};
-				postData.tokenFuncName = 'getProjectToken';
-				self.$apis.orderGet(postData, callback);
-			}
+				postData.searchItem = {
+					thirdapp_id: 2,
+					title: self.title
+				};
+				const callback = (res) => {
+					if (res.info.data.length > 0) {
+						self.mainData = res.info.data[0]
+					}
+					console.log('self.mainData', self.mainData)
+					self.$Utils.finishFunc('getMainData');
+				};
+				self.$apis.labelGet(postData, callback);
+			},
 		}
 	};
 </script>

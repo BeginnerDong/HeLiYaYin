@@ -6,8 +6,8 @@
 				<view class="ll"><image class="L-icon" src="../../static/images/contact-icon.png" mode=""></image></view>
 				<view class="rr flex">
 					<view>接单电话：</view>
-					<view class="pubColor mgl10 mgr10">15594872275</view>
-					<view class="pubColor">13259462111</view>
+					<view class="pubColor mgl10 mgr10" @click="callPhone(mainData[0].description)">{{mainData[0].description}}</view>
+					<view class="pubColor" @click="callPhone(mainData[0].url)">{{mainData[0].url}}</view>
 				</view>
 			</view>
 			<view class="f5H5"></view>
@@ -16,26 +16,26 @@
 					<view class="ll"><image class="L-icon" src="../../static/images/contact-icon1.png" mode=""></image></view>
 					<view class="rr flex borderB1">
 						<view>QQ接单客服一：</view>
-						<view class="pubColor mgl10 mgr10">363841479</view>
+						<view class="pubColor mgl10 mgr10">{{mainData[1].description}}</view>
 					</view>
 				</view>
 				<view class="item flexRowBetween">
 					<view class="ll"></view>
 					<view class="rr flex">
 						<view>QQ接单客服二：</view>
-						<view class="pubColor mgl10 mgr10">250389116</view>
+						<view class="pubColor mgl10 mgr10">{{mainData[1].url}}</view>
 					</view>
 				</view>
 			</view>
 			<view class="f5H5"></view>
 			<view class="item flex">
 				<view class="ll"><image class="L-icon" src="../../static/images/contact-icon2.png" mode=""></image></view>
-				<view class="rr flex">厂址：西安市蓝田县工业园</view>
+				<view class="rr flex">厂址：{{mainData[2].description}}</view>
 			</view>
 			<view class="f5H5"></view>
 			<view class="flexCenter">
 				<view style="margin-top: 100rpx;" @click="ewmShow">
-					<image class="ewmPic" src="../../static/images/contact-img.png" mode=""></image>
+					<image class="ewmPic" :src="mainData[2]&&mainData[2].mainImg&&mainData[2].mainImg[0]?mainData[2].mainImg[0].url:''" mode=""></image>
 				</view>
 			</view>
 		</view>
@@ -43,7 +43,7 @@
 		<view class="black-bj" v-show="is_show"></view>
 		<view class="ewmShow" v-show="is_ewmShow">
 			<view class="cont">
-				<image class="ewm" src="../../static/images/contact-img.png" mode=""></image>
+				<image class="ewm" :src="mainData[2]&&mainData[2].mainImg&&mainData[2].mainImg[0]?mainData[2].mainImg[0].url:''" mode=""></image>
 			</view>
 			<view class="closeBtn"  @click="ewmShow">×</view>
 		</view>
@@ -79,8 +79,7 @@
 		data() {
 			return {
 				Router:this.$Router,
-				showView: false,
-				wx_info:{},
+				mainData:[],
 				is_show:false,
 				is_ewmShow:false
 			}
@@ -88,21 +87,53 @@
 		
 		onLoad(options) {
 			const self = this;
-			// self.$Utils.loadAll(['getMainData'], self);
+			self.$Utils.loadAll(['getMainData'], self);
 		},
+		
 		methods: {
+			
+			callPhone(phone){
+				const self = this;
+				uni.makePhoneCall({
+				    phoneNumber: phone
+				});
+			},
+			
 			ewmShow(){
 				const self = this;
 				self.is_show = !self.is_show;
 				self.is_ewmShow = !self.is_ewmShow
 			},
+			
 			getMainData() {
-				const self = this;
-				console.log('852369')
-				const postData = {};
-				postData.tokenFuncName = 'getProjectToken';
-				self.$apis.orderGet(postData, callback);
-			}
+				const self = this;	
+				const postData = {};	
+				postData.searchItem = {
+					thirdapp_id:2,	
+				};
+				postData.getBefore = {
+					caseData: {
+						tableName: 'Label',
+						searchItem: {
+							title: ['=', ['联系公司']],
+						},
+						middleKey: 'parentid',
+						key: 'id',
+						condition: 'in',
+					},
+				};
+				postData.order = {
+					create_time:'asc'
+				};
+				const callback = (res) => {
+					if (res.info.data.length > 0) {
+						self.mainData.push.apply(self.mainData, res.info.data);
+					}
+					console.log('self.mainData',self.mainData)
+					self.$Utils.finishFunc('getMainData');
+				};
+				self.$apis.labelGet(postData, callback);
+			},
 		}
 	};
 </script>

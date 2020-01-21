@@ -73,6 +73,12 @@ export default {
 
 		return [params,hash]
     },
+	
+	//根据数组中的某个属性去重
+	unique(arr1) {
+	  const res = new Map();
+	  return arr1.filter((a) => !res.has(a.index) && res.set(a.index, 1))
+	},
 
 	showToast(title, type, duration, func) {
 		uni.showToast({
