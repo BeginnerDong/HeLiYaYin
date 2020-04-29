@@ -31,7 +31,7 @@
 					@click="Router.navigateTo({route:{path:'/pages/printPage/printPage?title=合板单页'}})">
 						<view><image class="icon mgr10" src="../../static/images/home-icon3.png" mode=""></image></view>
 						<view>
-							<view class="tit">合板单页保价</view>
+							<view class="tit">合板单页报价</view>
 							<view class="goBtn">立即进入&gt;</view>
 						</view>
 					</view>
@@ -40,7 +40,7 @@
 				@click="Router.navigateTo({route:{path:'/pages/printPage/printPage?title=其他'}})">
 					<view class="flexCenter mgb15"><image class="icon" src="../../static/images/home-icon4.png" mode=""></image></view>
 					<view class="flexColumn">
-						<view class="tit">其他印刷品保价</view>
+						<view class="tit">其他印刷品报价</view>
 						<view class="goBtn">立即进入&gt;</view>
 					</view>
 				</view>
