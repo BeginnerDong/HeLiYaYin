@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view><strong></strong>
-			<image class="w bigImg" :src="mainData.mainImg&&mainData.mainImg[0]?mainData.mainImg[0].url:''" mode="widthFix"></image>
+			<image v-for="(item,index) in mainData.mainImg" @click="previewImg(index)" class="w bigImg" :src="item.url" mode="widthFix"></image>
 		</view>
 		
 	</view>
@@ -32,6 +32,19 @@
 		},
 		
 		methods: {
+			
+			previewImg(index) {
+				const self = this;
+				var urls = [];
+				for (var i = 0; i < self.mainData.mainImg.length; i++) {
+					urls.push(self.mainData.mainImg[i].url)
+				};
+				wx.previewImage({
+				  current: index, // 当前显示图片的http链接
+				  urls: urls // 需要预览的图片http链接列表
+				})
+			},
+			
 			getMainData() {
 				const self = this;
 				const postData = {};

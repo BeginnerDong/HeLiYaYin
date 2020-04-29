@@ -19,7 +19,8 @@
 			<!--  -->
 			<view class="index_box1 flexRowBetween pdt20 pdb15  mgt25">
 				<view class="Lbox">
-					<view class="item flex radius10 mgb10" style="background: #ffead8;color: #ff8d2c;" @click="Router.navigateTo({route:{path:'/pages/picBook/picBook'}})">
+					<view class="item flex radius10 mgb10" style="background: #ffead8;color: #ff8d2c;" 
+					@click="Router.navigateTo({route:{path:'/pages/printPage/printPage?title=画册书刊'}})">
 						<view><image class="icon mgr10" src="../../static/images/home-icon2.png" mode=""></image></view>
 						<view>
 							<view class="tit">画册书刊报价</view>
